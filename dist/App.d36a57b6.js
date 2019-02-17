@@ -25600,11 +25600,6 @@ function (_React$Component) {
   }
 
   _createClass(App, [{
-    key: "handleTitleClick",
-    value: function handleTitleClick() {
-      alert("You clicked the title!");
-    }
-  }, {
     key: "render",
     value: function render() {
       // return React.createElement("div", {}, [
@@ -25625,9 +25620,7 @@ function (_React$Component) {
       //     breed: "Shnoodle",
       //   }),
       // ]);
-      return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("h1", {
-        onClick: this.handleTitleClick
-      }, "Adopt Me!"), _react.default.createElement(_Pet.default, {
+      return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("h1", null, "Adopt Me!"), _react.default.createElement(_Pet.default, {
         name: "Rudy",
         animal: "Dog",
         breed: "Dachshund"
