@@ -1,0 +1,19 @@
+# in root
+npm init -y
+npm i -g npx
+npm i -D prettier
+
+# Test prettier -> npx prettier App.js --write
+
+# VS CODE plugin
+# install prettier - code formatter
+# in settings turn on 
+#   Prettier: Require Config = true
+#   Editor: Format on Save = true
+
+npm i -D eslint eslint-config-prettier eslint-plugin-prettier
+
+# Husky githook to stop back checkins
+
+# VS CODE plugin
+# install ESLint
