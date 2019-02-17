@@ -1,3 +1,5 @@
+// Function components are good when a component doean't need state or
+// other lifecycle functions built in react.
 const Pet = (props) => {
     return React.createElement("div", {}, [
         React.createElement("h1", {}, props.name),
@@ -6,26 +8,30 @@ const Pet = (props) => {
     ]);
 };
 
-// Stateless Function Component Representation of App
-const App = () => {
-    return React.createElement("div", {}, [
-        React.createElement("h1", {}, "Adopt a Pet!"),
-        React.createElement(Pet, {
-            name: "Rudy",
-            animal: "Dog",
-            breed: "Dachshund"
-        }),
-        React.createElement(Pet, {
-            name: "Katie",
-            animal: "Dog",
-            breed: "Dachshund"
-        }),
-        React.createElement(Pet, {
-            name: "Corkie",
-            animal: "Dog",
-            breed: "Shnoodle"
-        })
-    ]);
-};
+class App extends React.Component {
+    handleTitleClick() {
+        alert("You clicked the title!")
+    }
+    render() {
+        return React.createElement("div", {}, [
+            React.createElement("h1", { onClick: this.handleTitleClick }, "Adopt a Pet!"),
+            React.createElement(Pet, {
+                name: "Rudy",
+                animal: "Dog",
+                breed: "Dachshund"
+            }),
+            React.createElement(Pet, {
+                name: "Katie",
+                animal: "Dog",
+                breed: "Dachshund"
+            }),
+            React.createElement(Pet, {
+                name: "Corkie",
+                animal: "Dog",
+                breed: "Shnoodle"
+            })
+        ]);
+    }
+}
 
 ReactDOM.render(React.createElement(App), document.getElementById("root"));
