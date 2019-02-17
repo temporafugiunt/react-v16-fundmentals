@@ -1,5 +1,3 @@
-/* global React ReactDOM */
-
 // Function components are good when a component doean't need state or
 // other lifecycle functions built in react.
 const Pet = (props) => {

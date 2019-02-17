@@ -12,6 +12,8 @@ npm i -D prettier
 #   Editor: Format on Save = true
 
 npm i -D eslint eslint-config-prettier eslint-plugin-prettier
+# debug eslint -> npm run lint -- --debug
+# autofix with eslint -> npm run lint -- --fix
 
 # Husky githook to stop back checkins
 
