@@ -12,8 +12,5 @@
     "browser": true,
     "node": true
   },
-  "globals": {
-    "React": true,
-    "ReactDOM": true
-  }
+  "globals": {}
 }

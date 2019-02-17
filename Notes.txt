@@ -19,3 +19,8 @@ npm i -D eslint eslint-config-prettier eslint-plugin-prettier
 
 # VS CODE plugin
 # install ESLint
+
+# parcel for up and done
+# webpack for production development (see v3 course for webpack or webpack fundamentals course)
+# browserify still exists too... : )
+npm install -D parcel-bundler
