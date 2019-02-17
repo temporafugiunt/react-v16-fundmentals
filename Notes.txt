@@ -24,3 +24,7 @@ npm i -D eslint eslint-config-prettier eslint-plugin-prettier
 # webpack for production development (see v3 course for webpack or webpack fundamentals course)
 # browserify still exists too... : )
 npm install -D parcel-bundler
+
+# COOL!
+# inspect element in browser becomes $0 variable
+# on console -> x=$0 assigns it

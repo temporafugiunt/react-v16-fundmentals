@@ -25607,9 +25607,27 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return _react.default.createElement("div", {}, [_react.default.createElement("h1", {
+      // return React.createElement("div", {}, [
+      //   React.createElement("h1", { onClick: this.handleTitleClick }, "Adopt a Pet!"),
+      //   React.createElement(Pet, {
+      //     name: "Rudy",
+      //     animal: "Dog",
+      //     breed: "Dachshund",
+      //   }),
+      //   React.createElement(Pet, {
+      //     name: "Katie",
+      //     animal: "Dog",
+      //     breed: "Dachshund",
+      //   }),
+      //   React.createElement(Pet, {
+      //     name: "Corkie",
+      //     animal: "Dog",
+      //     breed: "Shnoodle",
+      //   }),
+      // ]);
+      return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("h1", {
         onClick: this.handleTitleClick
-      }, "Adopt a Pet!"), _react.default.createElement(_Pet.default, {
+      }, "Adopt Me!"), _react.default.createElement(_Pet.default, {
         name: "Rudy",
         animal: "Dog",
         breed: "Dachshund"
@@ -25621,14 +25639,14 @@ function (_React$Component) {
         name: "Corkie",
         animal: "Dog",
         breed: "Shnoodle"
-      })]);
+      }));
     }
   }]);
 
   return App;
 }(_react.default.Component);
 
-(0, _reactDom.render)(_react.default.createElement(App), document.getElementById("root"));
+(0, _reactDom.render)(_react.default.createElement(App, null), document.getElementById("root"));
 },{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","./Pet":"Pet.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';

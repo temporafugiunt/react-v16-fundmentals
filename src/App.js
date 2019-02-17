@@ -7,25 +7,33 @@ class App extends React.Component {
     alert("You clicked the title!");
   }
   render() {
-    return React.createElement("div", {}, [
-      React.createElement("h1", { onClick: this.handleTitleClick }, "Adopt a Pet!"),
-      React.createElement(Pet, {
-        name: "Rudy",
-        animal: "Dog",
-        breed: "Dachshund",
-      }),
-      React.createElement(Pet, {
-        name: "Katie",
-        animal: "Dog",
-        breed: "Dachshund",
-      }),
-      React.createElement(Pet, {
-        name: "Corkie",
-        animal: "Dog",
-        breed: "Shnoodle",
-      }),
-    ]);
+    // return React.createElement("div", {}, [
+    //   React.createElement("h1", { onClick: this.handleTitleClick }, "Adopt a Pet!"),
+    //   React.createElement(Pet, {
+    //     name: "Rudy",
+    //     animal: "Dog",
+    //     breed: "Dachshund",
+    //   }),
+    //   React.createElement(Pet, {
+    //     name: "Katie",
+    //     animal: "Dog",
+    //     breed: "Dachshund",
+    //   }),
+    //   React.createElement(Pet, {
+    //     name: "Corkie",
+    //     animal: "Dog",
+    //     breed: "Shnoodle",
+    //   }),
+    // ]);
+    return (
+      <React.Fragment>
+        <h1 onClick={this.handleTitleClick}>Adopt Me!</h1>
+        <Pet name="Rudy" animal="Dog" breed="Dachshund" />
+        <Pet name="Katie" animal="Dog" breed="Dachshund" />
+        <Pet name="Corkie" animal="Dog" breed="Shnoodle" />
+      </React.Fragment>
+    );
   }
 }
 
-render(React.createElement(App), document.getElementById("root"));
+render(<App />, document.getElementById("root"));
