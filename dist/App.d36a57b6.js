@@ -25549,7 +25549,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // Function components are good when a component doean't need state or
 // other lifecycle functions built in react.
 var Pet = function Pet(props) {
-  return _react.default.createElement("div", {}, [_react.default.createElement("h1", {}, props.name), _react.default.createElement("h2", {}, props.animal), _react.default.createElement("h2", {}, props.breed)]);
+  //   return React.createElement("div", {}, [
+  //     React.createElement("h1", {}, props.name),
+  //     React.createElement("h2", {}, props.animal),
+  //     React.createElement("h2", {}, props.breed),
+  //   ]);
+  return _react.default.createElement("div", null, _react.default.createElement("h1", null, props.name), _react.default.createElement("h2", null, props.animal), _react.default.createElement("h2", null, props.breed));
 };
 
 var _default = Pet;
@@ -25651,7 +25656,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53859" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55971" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
