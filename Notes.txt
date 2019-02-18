@@ -40,4 +40,17 @@ npm install -D babel-eslint babel-core babel-preset-env babel-plugin-transform-c
 
 
 # FUTURE EXPLORE
+
 # https://github.com/browserslist/browserslist-ga
+
+# React Error Boundaries
+
+# RENDER DEBUGGER HELP - Easy way to view and debug state.
+render() {
+    return(
+        <pre>
+            <code>{JSON.stringify(this.state, null, 4)}</code>
+        </pre>
+    )
+}
+
