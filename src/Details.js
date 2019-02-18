@@ -54,11 +54,13 @@ class Details extends React.Component {
 
     const { name, animal, breed, location, description, media, showModal } = this.state;
 
+    console.log(this.myH1);
+
     return (
       <div className="details">
         <Carosel media={media} />
-        <div onClick={console.log}>
-          <h1>{name}</h1>
+        <div>
+          <h1 ref={(el) => (this.myH1 = el)}>{name}</h1>
           <h2>
             {animal} - {breed} - {location}{" "}
           </h2>
