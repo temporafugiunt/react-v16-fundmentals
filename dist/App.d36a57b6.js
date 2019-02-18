@@ -29384,7 +29384,7 @@ function (_React$Component) {
 
     return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Details)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.state = {
       loading: true,
-      showModal: true
+      showModal: false
     }, _this.toggleModal = function () {
       _this.setState({
         showModal: !_this.state.showModal
@@ -29442,7 +29442,9 @@ function (_React$Component) {
         className: "details"
       }, _react.default.createElement(_Carosel.default, {
         media: media
-      }), _react.default.createElement("div", null, _react.default.createElement("h1", null, name), _react.default.createElement("h2", null, animal, " - ", breed, " - ", location, " "), _react.default.createElement("button", {
+      }), _react.default.createElement("div", {
+        onClick: console.log
+      }, _react.default.createElement("h1", null, name), _react.default.createElement("h2", null, animal, " - ", breed, " - ", location, " "), _react.default.createElement("button", {
         onClick: this.toggleModal
       }, "Adopt ", name), _react.default.createElement("p", null, description), showModal ? _react.default.createElement(_Modal.default, null, _react.default.createElement("h1", null, " Would you like to adopt ", name, "?"), _react.default.createElement("div", {
         className: "buttons"

@@ -12,7 +12,7 @@ const petfinder = pf({
 class Details extends React.Component {
   state = {
     loading: true,
-    showModal: true,
+    showModal: false,
   };
   toggleModal = () => {
     this.setState({ showModal: !this.state.showModal });
@@ -57,7 +57,7 @@ class Details extends React.Component {
     return (
       <div className="details">
         <Carosel media={media} />
-        <div>
+        <div onClick={console.log}>
           <h1>{name}</h1>
           <h2>
             {animal} - {breed} - {location}{" "}
