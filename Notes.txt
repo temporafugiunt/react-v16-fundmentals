@@ -5,30 +5,49 @@ npm i -D prettier
 
 # Test prettier -> npx prettier App.js --write
 
-# VS CODE plugin
+# VS CODE plugins
 # install prettier - code formatter
 # in settings turn on 
 #   Prettier: Require Config = true
 #   Editor: Format on Save = true
+# install ESLint, TSLint
+# vscode-styled-components
+# tslint
+# npm intellisense
+# install firacode -> https://github.com/tonsky/FiraCode
+#   Text Editor Font = Fira code
+#   Enable font ligatures
 
 npm i -D eslint eslint-config-prettier eslint-plugin-prettier
 # debug eslint -> npm run lint -- --debug
 # autofix with eslint -> npm run lint -- --fix
 
-# Husky githook to stop back checkins
-
-# VS CODE plugin
-# install ESLint
-
 # parcel for up and done
 # webpack for production development (see v3 course for webpack or webpack fundamentals course)
 # browserify still exists too... : )
+# parcel alternative is not only webpack itself, but create-react-app which also uses webpack internally.
 npm install -D parcel-bundler
 
 npm install -D babel-eslint eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-react
 npm install -D babel-eslint babel-core babel-preset-env babel-plugin-transform-class-properties babel-preset-react
-  
 
+// Newer version of jest seems to be working with babel 7 which is failing in this configuration.
+npm install -D jest@23.5.0 react-test-renderer
+
+
+# TESTING
+# Run unit tests with jest
+npx jest 
+# Update any previous snapshots so snapshot tests won't failing
+npx jest -u
+# short hand for npm run test
+npm t -- --watch
+
+
+
+
+
+# Husky githook to stop back checkins
 
 # COOL BROWSER TRICKS!
 # inspect element in browser becomes $0 variable
@@ -44,6 +63,8 @@ npm install -D babel-eslint babel-core babel-preset-env babel-plugin-transform-c
 # https://github.com/browserslist/browserslist-ga
 
 # React Error Boundaries
+
+# Need to explore enzyme with Jest in v3
 
 # RENDER DEBUGGER HELP - Easy way to view and debug state.
 render() {

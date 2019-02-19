@@ -29429,7 +29429,7 @@ function (_React$Component) {
       var _this3 = this;
 
       if (this.state.loading) {
-        return _react.default.createElement("h1", null, "loading");
+        return _react.default.createElement("h1", null, "loading...");
       }
 
       var _this$state = this.state,
@@ -29699,7 +29699,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60692" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56844" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
