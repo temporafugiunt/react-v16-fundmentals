@@ -44,7 +44,10 @@ npx jest -u
 npm t -- --watch
 
 
-
+# Styled components
+npm install emotion react-emotion <-- Replaced with version 10
+npm i -D @emotion/core @emotion/styled
+npm i eslint-plugin-emotion
 
 
 # Husky githook to stop back checkins
@@ -65,6 +68,7 @@ npm t -- --watch
 # React Error Boundaries
 
 # Need to explore enzyme with Jest in v3
+# Need to explore Emotion for styled components in JS
 
 # RENDER DEBUGGER HELP - Easy way to view and debug state.
 render() {
