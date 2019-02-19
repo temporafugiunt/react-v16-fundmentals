@@ -31862,8 +31862,26 @@ var _colors = _interopRequireDefault(require("./colors"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 function _templateObject4() {
-  var data = _taggedTemplateLiteral(["\n  &:hover {\n    text-decoration: underline;\n  }\n\n  span {\n    display: inline-block;\n    border: 1px solid red;\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  &:hover {\n    text-decoration: underline;\n  }\n"]);
 
   _templateObject4 = function _templateObject4() {
     return data;
@@ -31883,7 +31901,7 @@ function _templateObject3() {
 }
 
 function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n  display: inline-block;\n  animation: 1s ", " linear infinite;\n"]);
+  var data = _taggedTemplateLiteral(["\n  display: inline-block;\n  animation: ", "s ", " linear infinite;\n"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -31905,20 +31923,57 @@ function _templateObject() {
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 var Spin = (0, _core.keyframes)(_templateObject());
-var SpyGlass = (0, _styled.default)("span")(_templateObject2(), Spin);
+var SpyGlass = (0, _styled.default)("span")(_templateObject2(), function (props) {
+  return props.frequency;
+}, Spin);
 var Container = (0, _styled.default)("header")(_templateObject3(), _colors.default.dark);
 var NavLink = (0, _styled.default)(_router.Link)(_templateObject4());
 
-var NavBar = function NavBar() {
-  return _react.default.createElement(Container, null, _react.default.createElement(NavLink, {
-    to: "/"
-  }, "Adopt Me!"), _react.default.createElement(NavLink, {
-    to: "/search-params"
-  }, _react.default.createElement(SpyGlass, {
-    "aria-label": "search",
-    role: "img"
-  }, "\uD83D\uDD0D")));
-};
+var NavBar =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(NavBar, _React$Component);
+
+  function NavBar() {
+    var _getPrototypeOf2;
+
+    var _this;
+
+    var _temp;
+
+    _classCallCheck(this, NavBar);
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(NavBar)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.state = {
+      spyRotationFrequencey: 10
+    }, _this.half = function () {
+      _this.setState({
+        spyRotationFrequencey: _this.state.spyRotationFrequencey / 2
+      });
+    }, _temp));
+  }
+
+  _createClass(NavBar, [{
+    key: "render",
+    value: function render() {
+      return _react.default.createElement(Container, null, _react.default.createElement(NavLink, {
+        to: "/"
+      }, "Adopt Me!"), _react.default.createElement(NavLink, {
+        to: "/search-params"
+      }, _react.default.createElement(SpyGlass, {
+        onClick: this.half,
+        frequency: this.state.spyRotationFrequencey,
+        "aria-label": "search",
+        role: "img"
+      }, "\uD83D\uDD0D")));
+    }
+  }]);
+
+  return NavBar;
+}(_react.default.Component);
 
 var _default = NavBar;
 exports.default = _default;

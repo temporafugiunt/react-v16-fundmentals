@@ -16,7 +16,7 @@ const Spin = keyframes`
 
 const SpyGlass = styled("span")`
   display: inline-block;
-  animation: 1s ${Spin} linear infinite;
+  animation: ${(props) => props.frequency}s ${Spin} linear infinite;
 `;
 
 const Container = styled("header")`
@@ -30,22 +30,27 @@ const NavLink = styled(Link)`
   &:hover {
     text-decoration: underline;
   }
-
-  span {
-    display: inline-block;
-    border: 1px solid red;
-  }
 `;
 
-const NavBar = () => (
-  <Container>
-    <NavLink to="/">Adopt Me!</NavLink>
-    <NavLink to="/search-params">
-      <SpyGlass aria-label="search" role="img">
-        🔍
-      </SpyGlass>
-    </NavLink>
-  </Container>
-);
+class NavBar extends React.Component {
+  state = {
+    spyRotationFrequencey: 10,
+  };
+  half = () => {
+    this.setState({ spyRotationFrequencey: this.state.spyRotationFrequencey / 2 });
+  };
+  render() {
+    return (
+      <Container>
+        <NavLink to="/">Adopt Me!</NavLink>
+        <NavLink to="/search-params">
+          <SpyGlass onClick={this.half} frequency={this.state.spyRotationFrequencey} aria-label="search" role="img">
+            🔍
+          </SpyGlass>
+        </NavLink>
+      </Container>
+    );
+  }
+}
 
 export default NavBar;
