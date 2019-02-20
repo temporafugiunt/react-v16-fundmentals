@@ -81,3 +81,5 @@ render() {
     )
 }
 
+# USEFUL SNIPPETS
+rcep <-- Create a react class

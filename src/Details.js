@@ -2,11 +2,19 @@ import React from "react";
 import pf from "petfinder-client";
 import { navigate } from "@reach/router/lib/history";
 import Carosel from "./Carosel";
+import Loadable from "react-loadable";
 import Modal from "./Modal";
 
 const petfinder = pf({
   key: process.env.API_KEY,
   secret: process.env.API_SECRET,
+});
+
+const loading = () => <h1>Loading</h1>;
+
+const LoadableModal = Loadable({
+  loader: () => import("./AdoptModalContent"),
+  loading,
 });
 
 class Details extends React.Component {
@@ -68,11 +76,7 @@ class Details extends React.Component {
           <p>{description}</p>
           {showModal ? (
             <Modal>
-              <h1> Would you like to adopt {name}?</h1>
-              <div className="buttons">
-                <button onClick={this.toggleModal}>Yes</button>
-                <button onClick={this.toggleModal}>Nope</button>
-              </div>
+              <LoadableModal toggleModal={this.toggleModal} />
             </Modal>
           ) : null}
         </div>
