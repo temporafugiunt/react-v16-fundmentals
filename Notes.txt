@@ -49,6 +49,8 @@ npm install emotion react-emotion <-- Replaced with version 10
 npm i -D @emotion/core @emotion/styled
 npm i eslint-plugin-emotion
 
+# Code Splitting
+npm install react-loadable
 
 # Husky githook to stop back checkins
 
