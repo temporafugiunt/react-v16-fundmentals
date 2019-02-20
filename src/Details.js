@@ -76,7 +76,7 @@ class Details extends React.Component {
           <p>{description}</p>
           {showModal ? (
             <Modal>
-              <LoadableModal toggleModal={this.toggleModal} />
+              <LoadableModal name={name} toggleModal={this.toggleModal} />
             </Modal>
           ) : null}
         </div>

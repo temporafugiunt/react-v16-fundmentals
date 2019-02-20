@@ -586,6 +586,7 @@ function (_React$Component) {
       }, name), _react.default.createElement("h2", null, animal, " - ", breed, " - ", location, " "), _react.default.createElement("button", {
         onClick: this.toggleModal
       }, "Adopt ", name), _react.default.createElement("p", null, description), showModal ? _react.default.createElement(_Modal.default, null, _react.default.createElement(LoadableModal, {
+        name: name,
         toggleModal: this.toggleModal
       })) : null));
     }
@@ -623,7 +624,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65410" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59172" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

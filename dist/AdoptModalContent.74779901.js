@@ -117,7 +117,7 @@ var _react = _interopRequireDefault(require("react"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var AdoptModalContent = function AdoptModalContent(props) {
-  return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("h1", null, " Would you like to adopt ", name, "?"), _react.default.createElement("div", {
+  return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("h1", null, " Would you like to adopt ", props.name, "?"), _react.default.createElement("div", {
     className: "buttons"
   }, _react.default.createElement("button", {
     onClick: props.toggleModal
@@ -155,7 +155,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65410" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59172" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
