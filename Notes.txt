@@ -44,7 +44,8 @@ npx jest -u
 npm t -- --watch
 
 
-
+# REDUX
+npm install redux redux-thunk react-redux
 
 
 # Husky githook to stop back checkins
