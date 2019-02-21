@@ -48,6 +48,9 @@ npm t -- --watch
 npm install redux redux-thunk react-redux
 
 
+# SERVER SIDE RENDERING
+npm install babel-cli express
+
 # Husky githook to stop back checkins
 
 # COOL BROWSER TRICKS!
