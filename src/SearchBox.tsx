@@ -2,20 +2,18 @@ import React, { Component } from "react";
 import { ANIMALS } from "petfinder-client";
 import { Consumer as SearchConsumer } from "./SearchContext";
 
-export class SearchBox extends Component {
-  handleFormSubmit = (event) => {
+interface Props {
+  search: () => void;
+}
+
+export class SearchBox extends Component<Props> {
+  public handleFormSubmit = (event: React.KeyboardEvent<HTMLFormElement>) => {
     event.preventDefault();
     this.props.search();
   };
-  render() {
+  public render() {
     return (
       <SearchConsumer>
-        {/* Function as a child pattern
-        {function(context)} {
-            return (
-                <markup>...</markup>
-            )
-        } */}
         {(searchContext) => (
           <div className="search-params">
             <form onSubmit={this.handleFormSubmit}>

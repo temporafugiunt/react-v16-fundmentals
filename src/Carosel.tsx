@@ -1,12 +1,22 @@
 import React, { Component } from "react";
+import { PetMedia, PetPhoto } from "petfinder-client";
 
-export class Carosel extends Component {
-  state = {
-    photos: [],
+interface Props {
+  media: PetMedia;
+}
+
+interface State {
+  active: number;
+  photos: PetPhoto[];
+}
+
+export class Carosel extends Component<Props, State> {
+  public state = {
+    photos: [] as PetPhoto[],
     active: 0,
   };
-  static getDerivedStateFromProps({ media }) {
-    let photos = [];
+  public static getDerivedStateFromProps({ media }: Props) {
+    let photos: PetPhoto[] = [];
 
     if (media && media.photos && media.photos.photo) {
       photos = media.photos.photo.filter((photo) => photo["@size"] === "pn");
@@ -20,14 +30,20 @@ export class Carosel extends Component {
   //       super(props);
   //       this.handleIndexClick = thils.handleIndexClick.bind(this); <-- es5 syntax
   //   }
-  handleIndexClick = (event) => {
-    this.setState({
-      // + coerces the string to number
-      // NOTE: Has access to data attributes.
-      active: +event.target.dataset.index,
-    });
+  public handleIndexClick = (event: React.MouseEvent<HTMLElement>) => {
+    if (!(event.target instanceof HTMLElement)) {
+      return;
+    }
+
+    if (event.target.dataset.index) {
+      this.setState({
+        // + coerces the string to number
+        // NOTE: Has access to data attributes.
+        active: +event.target.dataset.index,
+      });
+    }
   };
-  render() {
+  public render() {
     const { photos, active } = this.state;
 
     return (

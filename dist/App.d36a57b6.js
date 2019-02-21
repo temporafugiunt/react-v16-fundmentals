@@ -28983,490 +28983,367 @@ function ResultsWithContext(props) {
     }));
   });
 }
-},{"react":"../node_modules/react/index.js","petfinder-client":"../node_modules/petfinder-client/index.js","./Pet":"Pet.js","./SearchBox":"SearchBox.js","./SearchContext":"SearchContext.js"}],"../node_modules/@reach/router/lib/history.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","petfinder-client":"../node_modules/petfinder-client/index.js","./Pet":"Pet.js","./SearchBox":"SearchBox.js","./SearchContext":"SearchContext.js"}],"Carosel.tsx":[function(require,module,exports) {
 "use strict";
 
-exports.__esModule = true;
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var getLocation = function getLocation(source) {
-  return _extends({}, source.location, {
-    state: source.history.state,
-    key: source.history.state && source.history.state.key || "initial"
-  });
-};
-
-var createHistory = function createHistory(source, options) {
-  var listeners = [];
-  var location = getLocation(source);
-  var transitioning = false;
-  var resolveTransition = function resolveTransition() {};
-
-  return {
-    get location() {
-      return location;
-    },
-
-    get transitioning() {
-      return transitioning;
-    },
-
-    _onTransitionComplete: function _onTransitionComplete() {
-      transitioning = false;
-      resolveTransition();
-    },
-    listen: function listen(listener) {
-      listeners.push(listener);
-
-      var popstateListener = function popstateListener() {
-        location = getLocation(source);
-        listener({ location: location, action: "POP" });
-      };
-
-      source.addEventListener("popstate", popstateListener);
-
-      return function () {
-        source.removeEventListener("popstate", popstateListener);
-        listeners = listeners.filter(function (fn) {
-          return fn !== listener;
-        });
-      };
-    },
-    navigate: function navigate(to) {
-      var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
-          state = _ref.state,
-          _ref$replace = _ref.replace,
-          replace = _ref$replace === undefined ? false : _ref$replace;
-
-      state = _extends({}, state, { key: Date.now() + "" });
-      // try...catch iOS Safari limits to 100 pushState calls
-      try {
-        if (transitioning || replace) {
-          source.history.replaceState(state, null, to);
-        } else {
-          source.history.pushState(state, null, to);
-        }
-      } catch (e) {
-        source.location[replace ? "replace" : "assign"](to);
+var __extends = this && this.__extends || function () {
+  var _extendStatics = function extendStatics(d, b) {
+    _extendStatics = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (d, b) {
+      d.__proto__ = b;
+    } || function (d, b) {
+      for (var p in b) {
+        if (b.hasOwnProperty(p)) d[p] = b[p];
       }
+    };
 
-      location = getLocation(source);
-      transitioning = true;
-      var transition = new Promise(function (res) {
-        return resolveTransition = res;
-      });
-      listeners.forEach(function (listener) {
-        return listener({ location: location, action: "PUSH" });
-      });
-      return transition;
-    }
+    return _extendStatics(d, b);
   };
-};
 
-////////////////////////////////////////////////////////////////////////////////
-// Stores history entries in memory for testing or other platforms like Native
-var createMemorySource = function createMemorySource() {
-  var initialPathname = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "/";
+  return function (d, b) {
+    _extendStatics(d, b);
 
-  var index = 0;
-  var stack = [{ pathname: initialPathname, search: "" }];
-  var states = [];
-
-  return {
-    get location() {
-      return stack[index];
-    },
-    addEventListener: function addEventListener(name, fn) {},
-    removeEventListener: function removeEventListener(name, fn) {},
-
-    history: {
-      get entries() {
-        return stack;
-      },
-      get index() {
-        return index;
-      },
-      get state() {
-        return states[index];
-      },
-      pushState: function pushState(state, _, uri) {
-        var _uri$split = uri.split("?"),
-            pathname = _uri$split[0],
-            _uri$split$ = _uri$split[1],
-            search = _uri$split$ === undefined ? "" : _uri$split$;
-
-        index++;
-        stack.push({ pathname: pathname, search: search });
-        states.push(state);
-      },
-      replaceState: function replaceState(state, _, uri) {
-        var _uri$split2 = uri.split("?"),
-            pathname = _uri$split2[0],
-            _uri$split2$ = _uri$split2[1],
-            search = _uri$split2$ === undefined ? "" : _uri$split2$;
-
-        stack[index] = { pathname: pathname, search: search };
-        states[index] = state;
-      }
+    function __() {
+      this.constructor = d;
     }
+
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
   };
+}();
+
+var __importStar = this && this.__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) {
+    if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+  }
+  result["default"] = mod;
+  return result;
 };
-
-////////////////////////////////////////////////////////////////////////////////
-// global history - uses window.history as the source if available, otherwise a
-// memory history
-var canUseDOM = !!(typeof window !== "undefined" && window.document && window.document.createElement);
-var getSource = function getSource() {
-  return canUseDOM ? window : createMemorySource();
-};
-
-var globalHistory = createHistory(getSource());
-var navigate = globalHistory.navigate;
-
-////////////////////////////////////////////////////////////////////////////////
-
-exports.globalHistory = globalHistory;
-exports.navigate = navigate;
-exports.createHistory = createHistory;
-exports.createMemorySource = createMemorySource;
-},{}],"Carosel.js":[function(require,module,exports) {
-"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = exports.Carosel = void 0;
 
-var _react = _interopRequireWildcard(require("react"));
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
-
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+var react_1 = __importStar(require("react"));
 
 var Carosel =
-/*#__PURE__*/
-function (_Component) {
-  _inherits(Carosel, _Component);
+/** @class */
+function (_super) {
+  __extends(Carosel, _super);
 
   function Carosel() {
-    var _getPrototypeOf2;
+    var _this = _super !== null && _super.apply(this, arguments) || this;
 
-    var _this;
-
-    var _temp;
-
-    _classCallCheck(this, Carosel);
-
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Carosel)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.state = {
+    _this.state = {
       photos: [],
       active: 0
-    }, _this.handleIndexClick = function (event) {
-      _this.setState({
-        // + coerces the string to number
-        // NOTE: Has access to data attributes.
-        active: +event.target.dataset.index
-      });
-    }, _temp));
-  }
-
-  _createClass(Carosel, [{
-    key: "render",
-    value: function render() {
-      var _this2 = this;
-
-      var _this$state = this.state,
-          photos = _this$state.photos,
-          active = _this$state.active;
-      return _react.default.createElement("div", {
-        className: "carosuel"
-      }, _react.default.createElement("img", {
-        src: photos[active].value,
-        alt: "primary animal"
-      }), _react.default.createElement("div", {
-        className: "carosusel-smaller"
-      }, photos.map(function (photo, index) {
-        return (
-          /* eslint-disable-next-line */
-          _react.default.createElement("img", {
-            onClick: _this2.handleIndexClick,
-            key: photo.value // NOTE: Using data attributes for eventing.
-            ,
-            "data-index": index,
-            src: photo.value,
-            className: index === active ? "active" : "",
-            alt: "animal thumbnail"
-          })
-        );
-      })));
-    }
-  }], [{
-    key: "getDerivedStateFromProps",
-    value: function getDerivedStateFromProps(_ref) {
-      var media = _ref.media;
-      var photos = [];
-
-      if (media && media.photos && media.photos.photo) {
-        photos = media.photos.photo.filter(function (photo) {
-          return photo["@size"] === "pn";
-        });
-      }
-
-      return {
-        photos: photos
-      };
-    } // Arrow function binds to proper this.
+    }; // Arrow function binds to proper this.
     // Therefore don't need:
     // constructor(props) {
     //       super(props);
     //       this.handleIndexClick = thils.handleIndexClick.bind(this); <-- es5 syntax
     //   }
 
-  }]);
+    _this.handleIndexClick = function (event) {
+      if (!(event.target instanceof HTMLElement)) {
+        return;
+      }
+
+      if (event.target.dataset.index) {
+        _this.setState({
+          // + coerces the string to number
+          // NOTE: Has access to data attributes.
+          active: +event.target.dataset.index
+        });
+      }
+    };
+
+    return _this;
+  }
+
+  Carosel.getDerivedStateFromProps = function (_a) {
+    var media = _a.media;
+    var photos = [];
+
+    if (media && media.photos && media.photos.photo) {
+      photos = media.photos.photo.filter(function (photo) {
+        return photo["@size"] === "pn";
+      });
+    }
+
+    return {
+      photos: photos
+    };
+  };
+
+  Carosel.prototype.render = function () {
+    var _this = this;
+
+    var _a = this.state,
+        photos = _a.photos,
+        active = _a.active;
+    return react_1.default.createElement("div", {
+      className: "carosuel"
+    }, react_1.default.createElement("img", {
+      src: photos[active].value,
+      alt: "primary animal"
+    }), react_1.default.createElement("div", {
+      className: "carosusel-smaller"
+    }, photos.map(function (photo, index) {
+      return (
+        /* eslint-disable-next-line */
+        react_1.default.createElement("img", {
+          onClick: _this.handleIndexClick,
+          key: photo.value,
+          "data-index": index,
+          src: photo.value,
+          className: index === active ? "active" : "",
+          alt: "animal thumbnail"
+        })
+      );
+    })));
+  };
 
   return Carosel;
-}(_react.Component);
+}(react_1.Component);
 
 exports.Carosel = Carosel;
-var _default = Carosel;
-exports.default = _default;
-},{"react":"../node_modules/react/index.js"}],"Modal.js":[function(require,module,exports) {
+exports.default = Carosel;
+},{"react":"../node_modules/react/index.js"}],"Modal.tsx":[function(require,module,exports) {
 "use strict";
+
+var __extends = this && this.__extends || function () {
+  var _extendStatics = function extendStatics(d, b) {
+    _extendStatics = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (d, b) {
+      d.__proto__ = b;
+    } || function (d, b) {
+      for (var p in b) {
+        if (b.hasOwnProperty(p)) d[p] = b[p];
+      }
+    };
+
+    return _extendStatics(d, b);
+  };
+
+  return function (d, b) {
+    _extendStatics(d, b);
+
+    function __() {
+      this.constructor = d;
+    }
+
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
 
-var _react = _interopRequireDefault(require("react"));
+var react_1 = __importDefault(require("react"));
 
-var _reactDom = require("react-dom");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+var react_dom_1 = require("react-dom");
 
 var modalRoot = document.getElementById("modal");
 
 var Modal =
-/*#__PURE__*/
-function (_React$Component) {
-  _inherits(Modal, _React$Component);
+/** @class */
+function (_super) {
+  __extends(Modal, _super);
 
-  function Modal(props) {
-    var _this;
+  function Modal() {
+    var _this = _super !== null && _super.apply(this, arguments) || this;
 
-    _classCallCheck(this, Modal);
-
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Modal).call(this, props));
     _this.el = document.createElement("div");
     return _this;
   }
 
-  _createClass(Modal, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
+  Modal.prototype.componentDidMount = function () {
+    if (modalRoot) {
       modalRoot.appendChild(this.el);
     }
-  }, {
-    key: "componentWillUnmount",
-    value: function componentWillUnmount() {
+  };
+
+  Modal.prototype.componentWillUnmount = function () {
+    if (modalRoot) {
       modalRoot.removeChild(this.el);
     }
-  }, {
-    key: "render",
-    value: function render() {
-      return (0, _reactDom.createPortal)(this.props.children, this.el);
-    }
-  }]);
+  };
+
+  Modal.prototype.render = function () {
+    return react_dom_1.createPortal(this.props.children, this.el);
+  };
 
   return Modal;
-}(_react.default.Component);
+}(react_1.default.Component);
 
-var _default = Modal;
-exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js"}],"Details.js":[function(require,module,exports) {
+exports.default = Modal;
+},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js"}],"Details.tsx":[function(require,module,exports) {
 "use strict";
+
+var __extends = this && this.__extends || function () {
+  var _extendStatics = function extendStatics(d, b) {
+    _extendStatics = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (d, b) {
+      d.__proto__ = b;
+    } || function (d, b) {
+      for (var p in b) {
+        if (b.hasOwnProperty(p)) d[p] = b[p];
+      }
+    };
+
+    return _extendStatics(d, b);
+  };
+
+  return function (d, b) {
+    _extendStatics(d, b);
+
+    function __() {
+      this.constructor = d;
+    }
+
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
 
-var _react = _interopRequireDefault(require("react"));
+var react_1 = __importDefault(require("react"));
 
-var _petfinderClient = _interopRequireDefault(require("petfinder-client"));
+var petfinder_client_1 = __importDefault(require("petfinder-client"));
 
-var _history = require("@reach/router/lib/history");
+var router_1 = require("@reach/router");
 
-var _Carosel = _interopRequireDefault(require("./Carosel"));
+var Carosel_1 = __importDefault(require("./Carosel"));
 
-var _Modal = _interopRequireDefault(require("./Modal"));
+var Modal_1 = __importDefault(require("./Modal"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+if (!"5c89d1244248a620fa813682d28f3693" || !"5c67a5481ea5a9e6baeb3d6edf3154e1") {
+  throw new Error("No API Keys defined");
+}
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-var petfinder = (0, _petfinderClient.default)({
+var petfinder = petfinder_client_1.default({
   key: "5c89d1244248a620fa813682d28f3693",
   secret: "5c67a5481ea5a9e6baeb3d6edf3154e1"
 });
 
 var Details =
-/*#__PURE__*/
-function (_React$Component) {
-  _inherits(Details, _React$Component);
+/** @class */
+function (_super) {
+  __extends(Details, _super);
 
   function Details() {
-    var _getPrototypeOf2;
+    var _this = _super !== null && _super.apply(this, arguments) || this;
 
-    var _this;
-
-    var _temp;
-
-    _classCallCheck(this, Details);
-
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Details)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.state = {
+    _this.state = {
       loading: true,
-      showModal: false
-    }, _this.toggleModal = function () {
+      showModal: false,
+      name: "",
+      animal: "",
+      breed: "",
+      location: "",
+      description: "",
+      media: {}
+    };
+
+    _this.toggleModal = function () {
       _this.setState({
         showModal: !_this.state.showModal
       });
-    }, _temp));
+    };
+
+    return _this;
   }
 
-  _createClass(Details, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      var _this2 = this;
+  Details.prototype.componentDidMount = function () {
+    var _this = this;
 
-      petfinder.pet.get({
-        output: "full",
-        id: this.props.id
-      }).then(function (data) {
-        var pet = data.petfinder.pet;
-        var breed;
-
-        if (Array.isArray(pet.breeds.breed)) {
-          breed = pet.breeds.breed.join(", ");
-        } else {
-          breed = pet.breeds.breed;
-        }
-
-        _this2.setState({
-          name: pet.name,
-          animal: pet.animal,
-          location: "".concat(pet.contact.city, ", ").concat(pet.contact.state),
-          description: pet.description,
-          media: pet.media,
-          breed: breed,
-          loading: false // Spread operation usage instead of explicit usage.
-          // {...pet}
-
-        });
-      }).catch((0, _history.navigate)("/"));
+    if (!this.props.id) {
+      return;
     }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this3 = this;
 
-      if (this.state.loading) {
-        return _react.default.createElement("h1", null, "loading...");
+    petfinder.pet.get({
+      output: "full",
+      id: this.props.id
+    }).then(function (data) {
+      if (!data.petfinder.pet) {
+        router_1.navigate("/");
+        return;
       }
 
-      var _this$state = this.state,
-          name = _this$state.name,
-          animal = _this$state.animal,
-          breed = _this$state.breed,
-          location = _this$state.location,
-          description = _this$state.description,
-          media = _this$state.media,
-          showModal = _this$state.showModal;
-      console.log(this.myH1);
-      return _react.default.createElement("div", {
-        className: "details"
-      }, _react.default.createElement(_Carosel.default, {
-        media: media
-      }), _react.default.createElement("div", null, _react.default.createElement("h1", {
-        ref: function ref(el) {
-          return _this3.myH1 = el;
-        }
-      }, name), _react.default.createElement("h2", null, animal, " - ", breed, " - ", location, " "), _react.default.createElement("button", {
-        onClick: this.toggleModal
-      }, "Adopt ", name), _react.default.createElement("p", null, description), showModal ? _react.default.createElement(_Modal.default, null, _react.default.createElement("h1", null, " Would you like to adopt ", name, "?"), _react.default.createElement("div", {
-        className: "buttons"
-      }, _react.default.createElement("button", {
-        onClick: this.toggleModal
-      }, "Yes"), _react.default.createElement("button", {
-        onClick: this.toggleModal
-      }, "Nope"))) : null));
+      var pet = data.petfinder.pet;
+      var breed;
+
+      if (Array.isArray(pet.breeds.breed)) {
+        breed = pet.breeds.breed.join(", ");
+      } else {
+        breed = pet.breeds.breed;
+      }
+
+      _this.setState({
+        name: pet.name,
+        animal: pet.animal,
+        location: pet.contact.city + ", " + pet.contact.state,
+        description: pet.description,
+        media: pet.media,
+        breed: breed,
+        loading: false
+      });
+    });
+  };
+
+  Details.prototype.render = function () {
+    if (this.state.loading) {
+      return react_1.default.createElement("h1", null, "loading...");
     }
-  }]);
+
+    var _a = this.state,
+        name = _a.name,
+        animal = _a.animal,
+        breed = _a.breed,
+        location = _a.location,
+        description = _a.description,
+        media = _a.media,
+        showModal = _a.showModal;
+    return react_1.default.createElement("div", {
+      className: "details"
+    }, react_1.default.createElement(Carosel_1.default, {
+      media: media
+    }), react_1.default.createElement("div", null, react_1.default.createElement("h1", null, name), react_1.default.createElement("h2", null, animal, " - ", breed, " - ", location, " "), react_1.default.createElement("button", {
+      onClick: this.toggleModal
+    }, "Adopt ", name), react_1.default.createElement("p", null, description), showModal ? react_1.default.createElement(Modal_1.default, null, react_1.default.createElement("h1", null, " Would you like to adopt ", name, "?"), react_1.default.createElement("div", {
+      className: "buttons"
+    }, react_1.default.createElement("button", {
+      onClick: this.toggleModal
+    }, "Yes"), react_1.default.createElement("button", {
+      onClick: this.toggleModal
+    }, "Nope"))) : null));
+  };
 
   return Details;
-}(_react.default.Component);
+}(react_1.default.Component);
 
-var _default = Details;
-exports.default = _default;
-},{"react":"../node_modules/react/index.js","petfinder-client":"../node_modules/petfinder-client/index.js","@reach/router/lib/history":"../node_modules/@reach/router/lib/history.js","./Carosel":"Carosel.js","./Modal":"Modal.js"}],"SearchParams.js":[function(require,module,exports) {
+exports.default = Details;
+},{"react":"../node_modules/react/index.js","petfinder-client":"../node_modules/petfinder-client/index.js","@reach/router":"../node_modules/@reach/router/es/index.js","./Carosel":"Carosel.tsx","./Modal":"Modal.tsx"}],"SearchParams.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -29672,7 +29549,7 @@ function (_React$Component) {
 }(_react.default.Component);
 
 (0, _reactDom.render)(_react.default.createElement(App, null), document.getElementById("root"));
-},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","@reach/router":"../node_modules/@reach/router/es/index.js","petfinder-client":"../node_modules/petfinder-client/index.js","./SearchContext":"SearchContext.js","./Results":"Results.js","./Details":"Details.js","./SearchParams":"SearchParams.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","@reach/router":"../node_modules/@reach/router/es/index.js","petfinder-client":"../node_modules/petfinder-client/index.js","./SearchContext":"SearchContext.js","./Results":"Results.js","./Details":"Details.tsx","./SearchParams":"SearchParams.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -29699,7 +29576,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56844" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64876" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

@@ -6,7 +6,7 @@
   "scripts": {
     "format": "prettier --write \"src/**/*.{js,jsx,css,scss,json}\"",
     "format:check": "prettier --list-different \"src/**/*.{js,jsx,css,scss,json}\"",
-    "lint": "eslint \"src/**/*.{js,jsx}\"",
+    "lint": "tslint --project .",
     "dev": "parcel src/index.html",
     "test": "jest --silent",
     "test:update": "jest --silent -u",
@@ -16,21 +16,22 @@
   "author": "James Eby",
   "license": "ISC",
   "devDependencies": {
+    "@types/reach__router": "^1.2.3",
+    "@types/react": "^16.8.4",
+    "@types/react-dom": "^16.8.2",
     "babel-core": "^6.26.3",
-    "babel-eslint": "^10.0.1",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
-    "eslint": "^5.14.0",
-    "eslint-config-prettier": "^4.0.0",
-    "eslint-plugin-import": "^2.16.0",
-    "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-prettier": "^3.0.1",
-    "eslint-plugin-react": "^7.12.4",
     "jest": "^23.5.0",
     "parcel-bundler": "^1.11.0",
     "prettier": "^1.16.4",
-    "react-test-renderer": "^16.8.2"
+    "react-test-renderer": "^16.8.2",
+    "tslint": "^5.12.1",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-react": "^3.6.0",
+    "typescript": "^3.3.3"
   },
   "dependencies": {
     "@reach/router": "^1.2.1",

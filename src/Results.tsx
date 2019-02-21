@@ -1,26 +1,43 @@
 import React from "react";
-import pf from "petfinder-client";
+import pf, { Pet as PetType } from "petfinder-client";
 import Pet from "./Pet";
 import SearchBox from "./SearchBox";
 import { Consumer as SearchConsumer } from "./SearchContext";
+import { RouteComponentProps } from "@reach/router";
+
+if (!process.env.API_KEY || !process.env.API_SECRET) {
+  throw new Error("No API Keys defined");
+}
 
 const petfinder = pf({
   key: process.env.API_KEY,
   secret: process.env.API_SECRET,
 });
 
-class Results extends React.Component {
-  constructor(props) {
+interface Props {
+  searchParams: {
+    location: string;
+    animal: string;
+    breed: string;
+  };
+}
+
+interface State {
+  pets: PetType[];
+}
+
+class Results extends React.Component<Props, State> {
+  constructor(props: Props) {
     super(props);
 
     this.state = {
       pets: [],
     };
   }
-  componentDidMount() {
+  public componentDidMount() {
     this.search();
   }
-  search = () => {
+  public search = () => {
     petfinder.pet
       .find({
         output: "full",
@@ -29,7 +46,7 @@ class Results extends React.Component {
         breed: this.props.searchParams.breed,
       })
       .then((data) => {
-        let pets;
+        let pets: PetType[];
 
         if (data.petfinder.pets && data.petfinder.pets.pet) {
           if (Array.isArray(data.petfinder.pets.pet)) {
@@ -45,7 +62,7 @@ class Results extends React.Component {
         this.setState({ pets });
       });
   };
-  render() {
+  public render() {
     return (
       <div>
         <SearchBox search={this.search} />
@@ -78,6 +95,6 @@ class Results extends React.Component {
 // When you need access to a context in lifecycle methods beyond render() then your component needs to be
 // wrapped in this fashion so that you have access to context ino those other methods. If you only need access
 // to context inside the redner method then how it was done in SearchBox is enough.
-export default function ResultsWithContext(props) {
+export default function ResultsWithContext(props: RouteComponentProps) {
   return <SearchConsumer>{(searchContext) => <Results {...props} searchParams={searchContext} />}</SearchConsumer>;
 }

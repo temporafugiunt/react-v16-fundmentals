@@ -1,29 +1,48 @@
 import React from "react";
-import pf from "petfinder-client";
-import { navigate } from "@reach/router/lib/history";
+import pf, { PetResponse, PetMedia } from "petfinder-client";
+import { navigate } from "@reach/router";
 import Carosel from "./Carosel";
 import Modal from "./Modal";
+import { RouteComponentProps } from "@reach/router";
+
+if (!process.env.API_KEY || !process.env.API_SECRET) {
+  throw new Error("No API Keys defined");
+}
 
 const petfinder = pf({
   key: process.env.API_KEY,
   secret: process.env.API_SECRET,
 });
 
-class Details extends React.Component {
-  state = {
+class Details extends React.Component<RouteComponentProps<{ id: string }>> {
+  public state = {
     loading: true,
     showModal: false,
+    name: "",
+    animal: "",
+    breed: "",
+    location: "",
+    description: "",
+    media: {} as PetMedia,
   };
-  toggleModal = () => {
+  public toggleModal = () => {
     this.setState({ showModal: !this.state.showModal });
   };
-  componentDidMount() {
+  public componentDidMount() {
+    if (!this.props.id) {
+      return;
+    }
     petfinder.pet
       .get({
         output: "full",
         id: this.props.id,
       })
-      .then((data) => {
+      .then((data: PetResponse) => {
+        if (!data.petfinder.pet) {
+          navigate("/");
+          return;
+        }
+
         const pet = data.petfinder.pet;
         let breed;
 
@@ -44,8 +63,7 @@ class Details extends React.Component {
           // Spread operation usage instead of explicit usage.
           // {...pet}
         });
-      })
-      .catch(navigate("/"));
+      });
   }
   render() {
     if (this.state.loading) {
@@ -54,13 +72,11 @@ class Details extends React.Component {
 
     const { name, animal, breed, location, description, media, showModal } = this.state;
 
-    console.log(this.myH1);
-
     return (
       <div className="details">
         <Carosel media={media} />
         <div>
-          <h1 ref={(el) => (this.myH1 = el)}>{name}</h1>
+          <h1>{name}</h1>
           <h2>
             {animal} - {breed} - {location}{" "}
           </h2>

@@ -44,7 +44,13 @@ npx jest -u
 npm t -- --watch
 
 
-
+# TYPESCRIPT CONVERSION
+# https://definitelytyped.org/
+npm i -D typescript
+npx tsc --init
+npm i -D @types/react @types/react-dom @types/reach__router
+npm uninstall eslint babel-eslint eslint-config-prettier eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-react
+npm install -D tslint tslint-react tslint-config-prettier
 
 
 # Husky githook to stop back checkins
