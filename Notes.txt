@@ -66,6 +66,8 @@ npm install babel-cli express
 
 # FUTURE EXPLORE
 
+Live reload of SSR = Node Deamon
+
 # https://github.com/browserslist/browserslist-ga
 
 # React Error Boundaries
