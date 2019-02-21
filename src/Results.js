@@ -2,7 +2,8 @@ import React from "react";
 import pf from "petfinder-client";
 import Pet from "./Pet";
 import SearchBox from "./SearchBox";
-import { Consumer as SearchConsumer } from "./SearchContext";
+
+import { connect } from "react-redux";
 
 const petfinder = pf({
   key: process.env.API_KEY,
@@ -24,9 +25,9 @@ class Results extends React.Component {
     petfinder.pet
       .find({
         output: "full",
-        location: this.props.searchParams.location,
-        animal: this.props.searchParams.animal,
-        breed: this.props.searchParams.breed,
+        location: this.props.location,
+        animal: this.props.animal,
+        breed: this.props.breed,
       })
       .then((data) => {
         let pets;
@@ -74,10 +75,10 @@ class Results extends React.Component {
   }
 }
 
-// Not using arrow funciton here so that function will show up in call stack for debugging purposes.
-// When you need access to a context in lifecycle methods beyond render() then your component needs to be
-// wrapped in this fashion so that you have access to context ino those other methods. If you only need access
-// to context inside the redner method then how it was done in SearchBox is enough.
-export default function ResultsWithContext(props) {
-  return <SearchConsumer>{(searchContext) => <Results {...props} searchParams={searchContext} />}</SearchConsumer>;
-}
+const mapStateToProps = ({ location, breed, animal }) => ({
+  location,
+  breed,
+  animal,
+});
+
+export default connect(mapStateToProps)(Results);
